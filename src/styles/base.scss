@@ -1,0 +1,150 @@
+@import "./globals";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  @include background;
+  font-family: $secondary-typeface;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  transition: background 0.2s ease;
+
+  --background-color: #{$cloud};
+  --background-darker: #{darken($cloud, 15%)};
+  --primary-accent: #{$cardinal};
+  --background-angle: 75deg;
+
+  &.blue {
+    --background-color: aliceblue;
+    --background-darker: hsl(208, 100%, 90%);
+    --primary-accent: steelblue;
+  }
+
+  &.green {
+    --primary-accent: darkolivegreen;
+  }
+
+  &.grey {
+    --background-color: gainsboro;
+    --background-darker: hsl(0, 0%, 71%);
+    --primary-accent: darkslategrey;
+  }
+}
+
+a {
+  text-decoration-skip-ink: auto;
+}
+
+h1 {
+  font-family: $primary-typeface;
+}
+
+footer {
+  bottom: 0;
+  display: flex;
+  gap: 2em;
+  justify-content: space-between;
+  left: 0;
+  opacity: 0.2;
+  padding: 0.4em 1em;
+  pointer-events: none;
+  position: absolute;
+  transition: all 0.3s ease;
+  width: 100vw;
+  z-index: z($main-context, footer);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+
+    a {
+      color: white;
+    }
+  }
+
+  a {
+    display: flex;
+    vertical-align: bottom;
+    width: fit-content;
+    color: black;
+    text-decoration: none;
+    align-items: center;
+    line-height: 25px;
+    gap: 0.25em;
+    pointer-events: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    margin-top: -8px;
+  }
+
+  svg {
+    margin-top: -4px;
+    width: 1em;
+
+    path {
+      fill: white;
+    }
+
+    rect {
+      fill: grey;
+    }
+  }
+}
+
+kbd {
+  background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+  border-radius: 2px;
+  box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
+    0 1px 2px 1px rgb(30 35 90 / 40%);
+  color: black;
+  display: inline-block;
+  font-family: "Courier New";
+  font-size: 12px;
+  height: 18px;
+  justify-content: center;
+  line-height: 10px;
+  margin-right: 0.4em;
+  padding: 3px 5px;
+  text-align: center;
+  vertical-align: text-bottom;
+  width: 20px;
+
+  &.depressed {
+    box-shadow: inset 0 -1px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
+      0 0q 2px 1px rgb(30 35 90 / 40%);
+    padding-top: 4px;
+  }
+}
