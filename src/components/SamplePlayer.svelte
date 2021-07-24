@@ -241,8 +241,7 @@
   midiSamplePlayer.on("endOfFile", pausePlayback);
 
   onMount(async () => {
-    const module = await import("@tonejs/piano");
-    const Piano = module.default;
+    const { Piano } = await import("../tonejs-piano");
 
     piano = new Piano({
       url: "assets/samples/",
