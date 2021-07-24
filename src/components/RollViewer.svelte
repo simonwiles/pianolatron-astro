@@ -142,7 +142,7 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { rollMetadata, currentTick, userSettings } from "../stores";
-  import { clamp } from "../utils";
+  import { clamp, getNoteName } from "../utils";
   import RollViewerControls from "./RollViewerControls.svelte";
 
   export let imageUrl;
