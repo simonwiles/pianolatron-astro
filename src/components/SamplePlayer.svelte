@@ -1,6 +1,6 @@
 <script>
+  import { onMount } from "svelte";
   import MidiPlayer from "midi-player-js";
-  import { Piano } from "@tonejs/piano";
   import IntervalTree from "node-interval-tree";
 
   import {
@@ -19,6 +19,9 @@
     currentTick,
   } from "../stores";
 
+  let piano = { pedalUp: () => {} };
+  let pianoReady;
+
   let tempoMap;
   let pedalingMap;
   let notesMap;
@@ -33,22 +36,6 @@
   const ACCENT_BUMP = 1.5;
 
   const midiSamplePlayer = new MidiPlayer.Player();
-
-  const piano = new Piano({
-    url: "assets/samples/",
-    velocities: 4,
-    release: true,
-    pedal: true,
-    maxPolyphony: 64,
-    volume: {
-      strings: -15,
-      harmonics: -10,
-      pedal: -10,
-      keybed: -10,
-    },
-  }).toDestination();
-
-  const pianoReady = piano.load();
 
   const getTempoAtTick = (tick) => {
     if (!tempoMap || !$useMidiTempoEventsOnOff) return DEFAULT_TEMPO;
@@ -250,6 +237,27 @@
   );
 
   midiSamplePlayer.on("endOfFile", pausePlayback);
+
+  onMount(async () => {
+    const module = await import("@tonejs/piano");
+    const Piano = module.default;
+
+    piano = new Piano({
+      url: "assets/samples/",
+      velocities: 4,
+      release: true,
+      pedal: true,
+      maxPolyphony: 64,
+      volume: {
+        strings: -15,
+        harmonics: -10,
+        pedal: -10,
+        keybed: -10,
+      },
+    }).toDestination();
+
+    pianoReady = piano.load();
+  });
 
   /* eslint-disable no-unused-expressions, no-sequences */
   $: $sustainOnOff ? piano.pedalDown() : piano.pedalUp();
