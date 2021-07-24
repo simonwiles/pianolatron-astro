@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
-  import OpenSeadragon from "openseadragon";
 
   import { easingInterval } from "../utils";
 
@@ -10,6 +9,7 @@
   export let minZoomLevel;
   export let strafing;
   export let panByIncrement;
+  let OpenSeadragon;
   let panInterval;
 
   const { viewport } = openSeadragon;
@@ -28,7 +28,10 @@
 
   const onZoom = () => (currentZoom = viewport.getZoom());
 
-  onMount(() => {
+  onMount(async () => {
+    const module = await import("openseadragon");
+    OpenSeadragon = module.default;
+
     openSeadragon.addHandler("zoom", onZoom);
     return () => {
       openSeadragon.removeHandler("zoom", onZoom);

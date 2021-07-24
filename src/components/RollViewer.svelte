@@ -141,9 +141,8 @@
 <script>
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
-  import OpenSeadragon from "openseadragon";
   import { rollMetadata, currentTick, userSettings } from "../stores";
-  import { clamp, getNoteName } from "../utils";
+  import { clamp } from "../utils";
   import RollViewerControls from "./RollViewerControls.svelte";
 
   export let imageUrl;
@@ -154,6 +153,7 @@
   const minZoomLevel = 0.1;
   const maxZoomLevel = 4;
 
+  let OpenSeadragon;
   let openSeadragon;
   let viewport;
   let firstHolePx;
@@ -264,6 +264,8 @@
   };
 
   onMount(async () => {
+    const module = await import("openseadragon");
+    OpenSeadragon = module.default;
     openSeadragon = OpenSeadragon({
       id: "roll-viewer",
       showNavigationControl: false,
