@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script>
   import { onMount } from "svelte";
   import MidiPlayer from "midi-player-js";
