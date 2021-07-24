@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   let count = 0;
 
   function add() {
@@ -8,6 +9,7 @@
   function subtract() {
     count -= 1;
   }
+  onMount(() => console.log("onMount"));
 </script>
 
 <div class="counter">
